@@ -1,0 +1,22 @@
+aside{
+    width :20%
+}
+li{
+    list-style: none;
+}
+.side-item{
+    color: #a0b2b9;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.side-item:hover{
+    color: #12191d;
+    background-color: #a0b2b9;
+}
+.fas{
+    margin-right: 5px;
+}

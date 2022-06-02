@@ -1,0 +1,35 @@
+.nav-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #1B262C;
+
+    
+    /* box-shadow: 2px 2px 6px 6px rgb(34, 15, 2); */
+}
+.nav-left{
+    display: flex;
+}
+.nav-btn{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+/* .ham{
+    padding: 0px 25px;
+} */
+.nav-icon{
+    color: #a0b2b9;
+}
+.brand-name{
+    color: #a0b2b9;
+    font-size: 2rem;
+    font-style: italic;
+    margin: 0px 10px;
+    padding: 0px;
+}
+.brand-quote{
+    font-size: small;
+    margin: 0px;
+}
