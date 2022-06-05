@@ -1,4 +1,4 @@
-
+import { NavLink } from "react-router-dom";
 import "../styles/navbar.css";
 
 
@@ -15,8 +15,9 @@ const Navbar = ({sidebar, setSidebar}) =>{
             <p className="brand-quote">Everything started with nothing</p>
             </div>
             </section>
-            
-            <button className=" nav-btn"><i className="fas fa-sign-in-alt fa-2x nav-icon"></i></button>
+            <NavLink to="/login" className="link-style">
+            <button className=" nav-btn"><i className="fas fa-sign-in fa-2x nav-icon"></i></button>
+            </NavLink>
         </nav>
     );
 }
