@@ -1,19 +1,18 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import { getCategories, getVideos } from "../apis/videos";
 
-const VideoContext = createContext();
+const VideoContext = createContext(null);
 
 const initialState = {
     videos : [],
     categories : [],
+    liked : []
 }
 
-
 const VideoProvider = ({children}) => {
-
+    
     const videoFunction = ( videoState, action ) =>{
-        console.log("video Function called")
         switch(action.type){
             case "SET_VIDEOS" : 
             return {
@@ -25,6 +24,12 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState, 
                 categories : action.payload,
+            }
+
+            case "ADD_LIKED" :
+            return { 
+                ...videoState, 
+                liked : action.payload,
             }
         }
     }
@@ -55,6 +60,8 @@ const VideoProvider = ({children}) => {
         }
         allCategories();
     }, []);
+
+
     return (
         <VideoContext.Provider value={{videoState, videoDispatch}}>{children}</VideoContext.Provider>
     );
