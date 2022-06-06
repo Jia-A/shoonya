@@ -9,15 +9,18 @@ import { useAuth } from "../context/authContext";
 const Homepage = () =>{
     const [sidebar, setSidebar] = useState(true);
     const [ drop, setDrop ] = useState(false);
-    const { token } =  useAuth();
     const { videoState, videoDispatch } = useVideo();
     const { videos, categories } = videoState;
+    const { token } = useAuth();
     console.log( videos, categories )
 
     const postWatchLater = async ( video ) =>{
+        console.log(video)
         try{
-            const response = await postWatchLaterVideos(token, video)
-            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})
+            console.log("try block")
+            const response = await postWatchLaterVideos( token, video )
+            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+            console.log(response)
         }
         catch(error){
             console.log(error)
