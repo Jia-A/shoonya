@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useAuth } from "../context/authContext";
+const { token } = useAuth();
 
 const getVideos = async () =>{
     try {
@@ -25,4 +27,36 @@ const getCategories = async () =>{
       }
 }
 
-export { getVideos, getCategories }
+const getWatchLaterVideos = async () =>{
+    try{
+        const response = await axios({
+            method : "get",
+            url : "/api/user/watchlater",
+            headers : { authorization : token }
+        });
+        if(response.status === 200)
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+const postWatchLaterVideos = async ( token, video ) =>{
+    // const { token } = useAuth();
+    try{
+        const response = await axios({
+            method : "post",
+            url  : "/api/user/watchlater",
+            data :  video ,
+            headers : { authorization : token }
+        });
+        if(response.status === 200)
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+export { getVideos, getCategories, getWatchLaterVideos, postWatchLaterVideos }
