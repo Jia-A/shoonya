@@ -49,4 +49,21 @@ const postLikedVideos = async ( token, video) =>{
     }
 }
 
-export { getVideos, getCategories, getLikedVideos, postLikedVideos}
+const  removeLikedVideos = async ( token, _id) =>{
+    try {
+        const response = await axios({
+            method : "delete",
+            url : `/api/user/likes/${_id}`,
+            headers : { authorization : token },
+        })
+        if(response.status === 200 || response.status === 201){
+            console.log("remove this", token)
+            return response.data
+        }
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos}

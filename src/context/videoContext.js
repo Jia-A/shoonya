@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos } from "../apis/videos";
+import { getCategories, getVideos, removeLikedVideos } from "../apis/videos";
 import { postLikedVideos } from "../apis/videos";
 
 const VideoContext = createContext(null);
@@ -31,6 +31,12 @@ const VideoProvider = ({children}) => {
             case "ADD_LIKED" :
             return { 
                 ...videoState, 
+                liked : action.payload,
+            }
+
+            case "REMOVE_LIKED_VIDEOS" : 
+            return { 
+                ...videoState,
                 liked : action.payload,
             }
         }
@@ -78,9 +84,21 @@ const VideoProvider = ({children}) => {
         }
     }
 
+    const removeLikes = async ( token, _id) =>{
+        try{
+            console.log("reached removeWatchLater", token)
+            const response = await removeLikedVideos(token, _id)
+            videoDispatch({type : "REMOVE_LIKED_VIDEOS", payload : response.likes})
+            console.log(response)
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
 
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getLikes}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes}}>{children}</VideoContext.Provider>
     );
 }
 
