@@ -1,6 +1,8 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCategories, getVideos } from "../apis/videos";
+import { postLikedVideos } from "../apis/videos";
 
 const VideoContext = createContext(null);
 
@@ -11,7 +13,7 @@ const initialState = {
 }
 
 const VideoProvider = ({children}) => {
-    
+    const navigate = useNavigate();
     const videoFunction = ( videoState, action ) =>{
         switch(action.type){
             case "SET_VIDEOS" : 
@@ -61,9 +63,24 @@ const VideoProvider = ({children}) => {
         allCategories();
     }, []);
 
+    const getLikes = async (token, video) =>{
+        if(token){
+        try {
+            const response = await postLikedVideos( token ,video)
+            videoDispatch({type : "ADD_LIKED", payload : response.likes})
+        }
+        catch(error){
+            console.log(error)
+        }
+        }
+        else{
+            navigate("/login")
+        }
+    }
+
 
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes}}>{children}</VideoContext.Provider>
     );
 }
 
