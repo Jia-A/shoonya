@@ -1,19 +1,22 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos, removeLikedVideos } from "../apis/videos";
-import { postLikedVideos } from "../apis/videos";
+import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos } from "../apis/videos";
+
 
 const VideoContext = createContext(null);
 
 const initialState = {
     videos : [],
     categories : [],
+    watchLater : [],
     liked : []
+
 }
 
 const VideoProvider = ({children}) => {
     const navigate = useNavigate();
+
     const videoFunction = ( videoState, action ) =>{
         switch(action.type){
             case "SET_VIDEOS" : 
@@ -28,6 +31,18 @@ const VideoProvider = ({children}) => {
                 categories : action.payload,
             }
 
+
+            case "ADD_WATCH_LATER" :
+            return {
+                ...videoState,
+                watchLater : action.payload,
+            }
+
+            case "REMOVE_WATCH_LATER" :
+            return {
+                ...videoState,
+                watchLater : action.payload
+
             case "ADD_LIKED" :
             return { 
                 ...videoState, 
@@ -38,6 +53,7 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState,
                 liked : action.payload,
+
             }
         }
     }
@@ -69,15 +85,35 @@ const VideoProvider = ({children}) => {
         allCategories();
     }, []);
 
+
+    const getWatchLater = async ( token, video ) =>{
+        if(token){
+        try{
+            const response = await postWatchLaterVideos( token, video )
+            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+
     const getLikes = async (token, video) =>{
         if(token){
         try {
             const response = await postLikedVideos( token ,video)
             videoDispatch({type : "ADD_LIKED", payload : response.likes})
+
         }
         catch(error){
             console.log(error)
         }
+
+    }
+    else {
+        navigate("/login")
+    }
+    }
+
+    const removeWatchLater = async ( token, _id) =>{
+        try{
+            const response = await removeWatchLaterVideos(token, _id)
+            videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
+
         }
         else{
             navigate("/login")
@@ -95,8 +131,10 @@ const VideoProvider = ({children}) => {
         
     }
 
+
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater}}>{children}</VideoContext.Provider>
+
     );
 }
 
