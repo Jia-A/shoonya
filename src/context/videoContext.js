@@ -1,12 +1,14 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { useEffect } from "react";
 import { getCategories, getVideos } from "../apis/videos";
+import { postHistoryVideos, removeHistoryVideos, clearHistoryVideos } from "../apis/videos"
 
 const VideoContext = createContext();
 
 const initialState = {
     videos : [],
     categories : [],
+    history : []
 }
 
 
@@ -25,6 +27,23 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState, 
                 categories : action.payload,
+            }
+
+            case "ADD_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload,
+            }
+
+            case "REMOVE_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload
+            }
+            case "CLEAR_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload
             }
         }
     }
@@ -55,8 +74,45 @@ const VideoProvider = ({children}) => {
         }
         allCategories();
     }, []);
+
+    const getHistory = async ( token, video ) =>{
+        if(token){
+        try{
+            const response = await postHistoryVideos( token, video )
+            videoDispatch({ type : "ADD_HISTORY", payload : response.history})  
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        navigate("/login")
+    }
+    }
+
+    const removeHistory = async ( token, _id) =>{
+        try{
+            const response = await removeHistoryVideos(token, _id)
+            videoDispatch({type : "REMOVE_HISTORY", payload : response.history})
+        }
+        catch(error){
+            console.log(error)
+        }
+
+    }
+    
+    const clearHistory = async ( token) =>{
+        try{
+            const response = await clearHistoryVideos(token)
+            videoDispatch({type : "CLEAR_HISTORY", payload : response.history})
+        }
+        catch(error){
+            console.log(error)
+        }
+
+    }
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getHistory, removeHistory, clearHistory}}>{children}</VideoContext.Provider>
     );
 }
 

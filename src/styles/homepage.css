@@ -131,3 +131,13 @@
     color: #a0b2b9;
     font-style: italic;
 }
+.title, .card-img{
+    cursor: pointer;
+}
+.clear{ 
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 1.1rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
