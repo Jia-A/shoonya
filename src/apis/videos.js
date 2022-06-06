@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useAuth } from "../context/authContext"
+
 
 const getVideos = async () =>{
     try {
@@ -24,6 +26,7 @@ const getCategories = async () =>{
         console.error(error.response);
       }
 }
+
 
 const getWatchLaterVideos = async () =>{
     const { token } = useAuth();
@@ -70,9 +73,46 @@ const removeWatchLaterVideos = async ( token, _id) =>{
             return response.data
         }
     }
+          
+          
+
+const getLikedVideos = async () =>{
+    const { token } = useAuth();
+    try { 
+        const response = await axios.get("/api/user/likes", { headers : { authorization : token }})
+        if(response.status === 200) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
+const postLikedVideos = async ( token, video) =>{
+    try{
+        const response = await axios.post("/api/user/likes", { video }, { headers : { authorization : token}})
+        if(response.status === 200 || response.status === 201) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
+const  removeLikedVideos = async ( token, _id) =>{
+    try {
+        const response = await axios({
+            method : "delete",
+            url : `/api/user/likes/${_id}`,
+            headers : { authorization : token },
+        })
+        if(response.status === 200 || response.status === 201){
+            return response.data
+        }
+    }
     catch(error){
         console.log(error)
     }
 }
 
-export { getVideos, getCategories, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos }
+
+export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos}
+
