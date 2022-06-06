@@ -17,7 +17,7 @@ const Homepage = () =>{
     const getLikes = async (video) =>{
         if(token){
         try {
-            const response = await postLikedVideos(video)
+            const response = await postLikedVideos( token ,video)
             videoDispatch({type : "ADD_LIKED", payload : response.likes})
         }
         catch(error){

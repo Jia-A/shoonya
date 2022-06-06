@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useAuth } from "../context/authContext"
-const { token } = useAuth();
+
 
 const getVideos = async () =>{
     try {
@@ -28,6 +28,7 @@ const getCategories = async () =>{
 }
 
 const getLikedVideos = async () =>{
+    const { token } = useAuth();
     try { 
         const response = await axios.get("/api/user/likes", { headers : { authorization : token }})
         if(response.status === 200) return response.data
@@ -37,7 +38,7 @@ const getLikedVideos = async () =>{
     }
 }
 
-const postLikedVideos = async (video) =>{
+const postLikedVideos = async ( token, video) =>{
     try{
         console.log("in the postlikedvideos")
         const response = await axios.post("/api/user/likes", { video }, { headers : { authorization : token}})
