@@ -42,6 +42,7 @@ const VideoProvider = ({children}) => {
             return {
                 ...videoState,
                 watchLater : action.payload
+            }
 
             case "ADD_LIKED" :
             return { 
@@ -88,9 +89,19 @@ const VideoProvider = ({children}) => {
 
     const getWatchLater = async ( token, video ) =>{
         if(token){
-        try{
-            const response = await postWatchLaterVideos( token, video )
-            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+            try{
+                const response = await postWatchLaterVideos( token, video )
+                videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+        else{
+            navigate("/login")
+        }
+    }    
 
     const getLikes = async (token, video) =>{
         if(token){
@@ -115,9 +126,10 @@ const VideoProvider = ({children}) => {
             videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
 
         }
-        else{
-            navigate("/login")
+        catch(error){
+            console.log(error)
         }
+        
     }
 
     const removeLikes = async ( token, _id) =>{
@@ -140,4 +152,4 @@ const VideoProvider = ({children}) => {
 
 const useVideo = () => useContext(VideoContext);
 
-export { VideoProvider, useVideo };
+export { VideoProvider, useVideo }
