@@ -11,7 +11,6 @@ const Homepage = () =>{
     const { videoState, getWatchLater, removeWatchLater } = useVideo();
     const { videos, categories } = videoState;
     const { token } = useAuth();
-    console.log( videos, categories )
 
     const watchLaterHandler = (token, video) =>{
         videoState.watchLater.some((item) => item._id === video._id) ?

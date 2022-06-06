@@ -16,7 +16,6 @@ const initialState = {
 const VideoProvider = ({children}) => {
     const navigate = useNavigate();
         const videoFunction = ( videoState, action ) =>{
-        console.log("video Function called")
         switch(action.type){
             case "SET_VIDEOS" : 
             return {
@@ -73,12 +72,9 @@ const VideoProvider = ({children}) => {
 
     const getWatchLater = async ( token, video ) =>{
         if(token){
-        console.log(video)
         try{
-            console.log("try block")
             const response = await postWatchLaterVideos( token, video )
             videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
-            console.log(response)
         }
         catch(error){
             console.log(error)
@@ -91,10 +87,8 @@ const VideoProvider = ({children}) => {
 
     const removeWatchLater = async ( token, _id) =>{
         try{
-            console.log("reached removeWatchLater", token)
             const response = await removeWatchLaterVideos(token, _id)
             videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
-            console.log(response)
         }
         catch(error){
             console.log(error)

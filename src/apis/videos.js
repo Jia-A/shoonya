@@ -1,7 +1,4 @@
 import axios from "axios";
-// import { useAuth } from "../context/authContext";
-
-
 
 const getVideos = async () =>{
     try {
@@ -45,8 +42,6 @@ const getWatchLaterVideos = async () =>{
 }
 
 const postWatchLaterVideos = async ( token, video ) =>{
-    console.log(token)
-    console.log(video)
     try{
         const response = await axios({
             method : "post",
@@ -55,7 +50,6 @@ const postWatchLaterVideos = async ( token, video ) =>{
             headers : { authorization : token },
         })
         if(response.status === 200 || response.status === 201){
-            console.log(response.data)
             return response.data
         }
         
@@ -73,7 +67,6 @@ const removeWatchLaterVideos = async ( token, _id) =>{
             headers : { authorization : token },
         })
         if(response.status === 200 || response.status === 201){
-            console.log("remove this", token)
             return response.data
         }
     }
