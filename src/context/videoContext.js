@@ -1,6 +1,8 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCategories, getVideos } from "../apis/videos";
+import { postWatchLaterVideos } from "../apis/videos";
 
 const VideoContext = createContext();
 
@@ -12,8 +14,8 @@ const initialState = {
 
 
 const VideoProvider = ({children}) => {
-
-    const videoFunction = ( videoState, action ) =>{
+    const navigate = useNavigate();
+        const videoFunction = ( videoState, action ) =>{
         console.log("video Function called")
         switch(action.type){
             case "SET_VIDEOS" : 
@@ -62,8 +64,26 @@ const VideoProvider = ({children}) => {
         }
         allCategories();
     }, []);
+
+    const getWatchLater = async ( token, video ) =>{
+        if(token){
+        console.log(video)
+        try{
+            console.log("try block")
+            const response = await postWatchLaterVideos( token, video )
+            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+            console.log(response)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        navigate("/login")
+    }
+    }
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getWatchLater}}>{children}</VideoContext.Provider>
     );
 }
 

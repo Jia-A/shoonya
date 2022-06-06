@@ -4,28 +4,16 @@ import "../styles/homepage.css"
 import "../root.css"
 import { useState } from "react";
 import { useVideo } from "../context/videoContext";
-import { postWatchLaterVideos } from "../apis/videos";
 import { useAuth } from "../context/authContext";
 const Homepage = () =>{
     const [sidebar, setSidebar] = useState(true);
     const [ drop, setDrop ] = useState(false);
-    const { videoState, videoDispatch } = useVideo();
+    const { videoState, getWatchLater } = useVideo();
     const { videos, categories } = videoState;
     const { token } = useAuth();
     console.log( videos, categories )
 
-    const postWatchLater = async ( video ) =>{
-        console.log(video)
-        try{
-            console.log("try block")
-            const response = await postWatchLaterVideos( token, video )
-            videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
-            console.log(response)
-        }
-        catch(error){
-            console.log(error)
-        }
-    }
+
     return (
         <div className="App">
             <Navbar sidebar={sidebar} setSidebar={setSidebar}/>
@@ -56,7 +44,7 @@ const Homepage = () =>{
                                  
                  {drop? (
                      <ul className="dp-ul">
-                 <li className="dp-item" onClick={()=>postWatchLater(video)}><span><i className="fas fa-clock
+                 <li className="dp-item" onClick={()=>getWatchLater(token,video)}><span><i className="fas fa-clock
                  card-icon"></i></span> Watch Later</li>
                  <li className="dp-item"><span><i className="fas fa-thumbs-up card-icon"></i></span> Like</li>
                  <li className="dp-item"><span><i className="fas fa-list card-icon"></i></span> Playlist</li>
