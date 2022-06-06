@@ -40,7 +40,6 @@ const getLikedVideos = async () =>{
 
 const postLikedVideos = async ( token, video) =>{
     try{
-        console.log("in the postlikedvideos")
         const response = await axios.post("/api/user/likes", { video }, { headers : { authorization : token}})
         if(response.status === 200 || response.status === 201) return response.data
     }
@@ -57,7 +56,6 @@ const  removeLikedVideos = async ( token, _id) =>{
             headers : { authorization : token },
         })
         if(response.status === 200 || response.status === 201){
-            console.log("remove this", token)
             return response.data
         }
     }

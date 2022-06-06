@@ -86,10 +86,8 @@ const VideoProvider = ({children}) => {
 
     const removeLikes = async ( token, _id) =>{
         try{
-            console.log("reached removeWatchLater", token)
             const response = await removeLikedVideos(token, _id)
             videoDispatch({type : "REMOVE_LIKED_VIDEOS", payload : response.likes})
-            console.log(response)
         }
         catch(error){
             console.log(error)
