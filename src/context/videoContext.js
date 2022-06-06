@@ -1,19 +1,20 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
-import { getCategories, getVideos } from "../apis/videos";
+import { useNavigate } from "react-router-dom";
+import { getCategories, getVideos, removeLikedVideos } from "../apis/videos";
+import { postLikedVideos } from "../apis/videos";
 
-const VideoContext = createContext();
+const VideoContext = createContext(null);
 
 const initialState = {
     videos : [],
     categories : [],
+    liked : []
 }
 
-
 const VideoProvider = ({children}) => {
-
+    const navigate = useNavigate();
     const videoFunction = ( videoState, action ) =>{
-        console.log("video Function called")
         switch(action.type){
             case "SET_VIDEOS" : 
             return {
@@ -25,6 +26,18 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState, 
                 categories : action.payload,
+            }
+
+            case "ADD_LIKED" :
+            return { 
+                ...videoState, 
+                liked : action.payload,
+            }
+
+            case "REMOVE_LIKED_VIDEOS" : 
+            return { 
+                ...videoState,
+                liked : action.payload,
             }
         }
     }
@@ -55,8 +68,35 @@ const VideoProvider = ({children}) => {
         }
         allCategories();
     }, []);
+
+    const getLikes = async (token, video) =>{
+        if(token){
+        try {
+            const response = await postLikedVideos( token ,video)
+            videoDispatch({type : "ADD_LIKED", payload : response.likes})
+        }
+        catch(error){
+            console.log(error)
+        }
+        }
+        else{
+            navigate("/login")
+        }
+    }
+
+    const removeLikes = async ( token, _id) =>{
+        try{
+            const response = await removeLikedVideos(token, _id)
+            videoDispatch({type : "REMOVE_LIKED_VIDEOS", payload : response.likes})
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
+
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes}}>{children}</VideoContext.Provider>
     );
 }
 
