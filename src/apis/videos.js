@@ -65,4 +65,21 @@ const postWatchLaterVideos = async ( token, video ) =>{
     }
 }
 
-export { getVideos, getCategories, getWatchLaterVideos, postWatchLaterVideos }
+const removeWatchLaterVideos = async ( token, _id) =>{
+    try {
+        const response = await axios({
+            method : "delete",
+            url : `/api/user/watchlater/${_id}`,
+            headers : { authorization : token },
+        })
+        if(response.status === 200 || response.status === 201){
+            console.log("remove this", token)
+            return response.data
+        }
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+export { getVideos, getCategories, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos }

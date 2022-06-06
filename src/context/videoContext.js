@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos } from "../apis/videos";
+import { getCategories, getVideos, removeWatchLaterVideos } from "../apis/videos";
 import { postWatchLaterVideos } from "../apis/videos";
 
 const VideoContext = createContext();
@@ -34,6 +34,12 @@ const VideoProvider = ({children}) => {
             return {
                 ...videoState,
                 watchLater : action.payload,
+            }
+
+            case "REMOVE_WATCH_LATER" :
+            return {
+                ...videoState,
+                watchLater : action.payload
             }
         }
     }
@@ -82,8 +88,21 @@ const VideoProvider = ({children}) => {
         navigate("/login")
     }
     }
+
+    const removeWatchLater = async ( token, _id) =>{
+        try{
+            console.log("reached removeWatchLater", token)
+            const response = await removeWatchLaterVideos(token, _id)
+            videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
+            console.log(response)
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getWatchLater}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getWatchLater, removeWatchLater}}>{children}</VideoContext.Provider>
     );
 }
 
