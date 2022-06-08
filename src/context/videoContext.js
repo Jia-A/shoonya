@@ -1,21 +1,25 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
-import { getCategories, getVideos } from "../apis/videos";
-import { postHistoryVideos, removeHistoryVideos, clearHistoryVideos } from "../apis/videos"
 
-const VideoContext = createContext();
+import { useNavigate } from "react-router-dom";
+import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos } from "../apis/videos";
+
+
+
+const VideoContext = createContext(null);
 
 const initialState = {
     videos : [],
     categories : [],
     history : []
+    watchLater : [],
+    liked : []
 }
 
-
 const VideoProvider = ({children}) => {
+    const navigate = useNavigate();
 
     const videoFunction = ( videoState, action ) =>{
-        console.log("video Function called")
         switch(action.type){
             case "SET_VIDEOS" : 
             return {
@@ -44,6 +48,32 @@ const VideoProvider = ({children}) => {
             return {
                 ...videoState,
                 history : action.payload
+
+
+            case "ADD_WATCH_LATER" :
+            return {
+                ...videoState,
+                watchLater : action.payload,
+            }
+
+            case "REMOVE_WATCH_LATER" :
+            return {
+                ...videoState,
+                watchLater : action.payload
+            }
+
+            case "ADD_LIKED" :
+            return { 
+                ...videoState, 
+                liked : action.payload,
+            }
+
+            case "REMOVE_LIKED_VIDEOS" : 
+            return { 
+                ...videoState,
+                liked : action.payload,
+
+
             }
         }
     }
@@ -75,6 +105,7 @@ const VideoProvider = ({children}) => {
         allCategories();
     }, []);
 
+
     const getHistory = async ( token, video ) =>{
         if(token){
         try{
@@ -90,6 +121,39 @@ const VideoProvider = ({children}) => {
     }
     }
 
+    const getWatchLater = async ( token, video ) =>{
+        if(token){
+            try{
+                const response = await postWatchLaterVideos( token, video )
+                videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
+
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+        else{
+            navigate("/login")
+        }
+    }    
+
+    const getLikes = async (token, video) =>{
+        if(token){
+        try {
+            const response = await postLikedVideos( token ,video)
+            videoDispatch({type : "ADD_LIKED", payload : response.likes})
+
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        navigate("/login")
+    }
+    }
+
+
     const removeHistory = async ( token, _id) =>{
         try{
             const response = await removeHistoryVideos(token, _id)
@@ -100,6 +164,17 @@ const VideoProvider = ({children}) => {
         }
 
     }
+
+    const removeWatchLater = async ( token, _id) =>{
+        try{
+            const response = await removeWatchLaterVideos(token, _id)
+            videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    
     
     const clearHistory = async ( token) =>{
         try{
@@ -111,11 +186,26 @@ const VideoProvider = ({children}) => {
         }
 
     }
+
+    const removeLikes = async ( token, _id) =>{
+        try{
+            const response = await removeLikedVideos(token, _id)
+            videoDispatch({type : "REMOVE_LIKED_VIDEOS", payload : response.likes})
+        }
+        catch(error){
+            console.log(error)
+        }
+
+
+    }
+    
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getHistory, removeHistory, clearHistory}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory}}>{children}</VideoContext.Provider>
+
+
     );
 }
 
 const useVideo = () => useContext(VideoContext);
 
-export { VideoProvider, useVideo };
+export { VideoProvider, useVideo }
