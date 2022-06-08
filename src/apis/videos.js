@@ -135,7 +135,8 @@ const clearHistoryVideos = async ( token) =>{
             method : "delete",
             url : "/api/user/history/all",
             headers: { authorization : token }
-        }
+        })
+    }
     catch(error)
     {
         console.log(error)

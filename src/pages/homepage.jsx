@@ -10,8 +10,9 @@ const Homepage = () =>{
     const [sidebar, setSidebar] = useState(true);
     const [ drop, setDrop ] = useState(false);
     const { token } = useAuth();
-    const { videos, categories } = videoState;                           
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory } = useVideo();
+    const { videos, categories } = videoState;                           
+   
 
 
 const watchLaterHandler = (token, video) =>{

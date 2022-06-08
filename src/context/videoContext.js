@@ -11,7 +11,7 @@ const VideoContext = createContext(null);
 const initialState = {
     videos : [],
     categories : [],
-    history : []
+    history : [],
     watchLater : [],
     liked : []
 }
@@ -48,8 +48,8 @@ const VideoProvider = ({children}) => {
             return {
                 ...videoState,
                 history : action.payload
-
-
+            
+            }
             case "ADD_WATCH_LATER" :
             return {
                 ...videoState,
