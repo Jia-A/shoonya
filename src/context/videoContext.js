@@ -1,7 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos } from "../apis/videos";
+import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos } from "../apis/videos";
+
 
 
 const VideoContext = createContext(null);
@@ -9,9 +11,9 @@ const VideoContext = createContext(null);
 const initialState = {
     videos : [],
     categories : [],
+    history : []
     watchLater : [],
     liked : []
-
 }
 
 const VideoProvider = ({children}) => {
@@ -30,6 +32,22 @@ const VideoProvider = ({children}) => {
                 ...videoState, 
                 categories : action.payload,
             }
+
+            case "ADD_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload,
+            }
+
+            case "REMOVE_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload
+            }
+            case "CLEAR_HISTORY" :
+            return {
+                ...videoState,
+                history : action.payload
 
 
             case "ADD_WATCH_LATER" :
@@ -54,6 +72,7 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState,
                 liked : action.payload,
+
 
             }
         }
@@ -87,6 +106,21 @@ const VideoProvider = ({children}) => {
     }, []);
 
 
+    const getHistory = async ( token, video ) =>{
+        if(token){
+        try{
+            const response = await postHistoryVideos( token, video )
+            videoDispatch({ type : "ADD_HISTORY", payload : response.history})  
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        navigate("/login")
+    }
+    }
+
     const getWatchLater = async ( token, video ) =>{
         if(token){
             try{
@@ -113,23 +147,44 @@ const VideoProvider = ({children}) => {
         catch(error){
             console.log(error)
         }
-
     }
     else {
         navigate("/login")
     }
     }
 
-    const removeWatchLater = async ( token, _id) =>{
-        try{
-            const response = await removeWatchLaterVideos(token, _id)
-            videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
 
+    const removeHistory = async ( token, _id) =>{
+        try{
+            const response = await removeHistoryVideos(token, _id)
+            videoDispatch({type : "REMOVE_HISTORY", payload : response.history})
         }
         catch(error){
             console.log(error)
         }
-        
+
+    }
+
+    const removeWatchLater = async ( token, _id) =>{
+        try{
+            const response = await removeWatchLaterVideos(token, _id)
+            videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    
+    
+    const clearHistory = async ( token) =>{
+        try{
+            const response = await clearHistoryVideos(token)
+            videoDispatch({type : "CLEAR_HISTORY", payload : response.history})
+        }
+        catch(error){
+            console.log(error)
+        }
+
     }
 
     const removeLikes = async ( token, _id) =>{
@@ -140,12 +195,13 @@ const VideoProvider = ({children}) => {
         catch(error){
             console.log(error)
         }
-        
+
+
     }
-
-
+    
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory}}>{children}</VideoContext.Provider>
+
 
     );
 }

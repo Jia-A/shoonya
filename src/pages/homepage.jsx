@@ -5,12 +5,14 @@ import "../root.css"
 import { useState } from "react";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
-const Homepage = () => {
-const [sidebar, setSidebar] = useState(true);
-const [ drop, setDrop ] = useState(false);
-const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes } = useVideo();
-const { token } = useAuth();
-const { videos, categories } = videoState;
+
+const Homepage = () =>{
+    const [sidebar, setSidebar] = useState(true);
+    const [ drop, setDrop ] = useState(false);
+    const { token } = useAuth();
+    const { videos, categories } = videoState;                           
+    const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory } = useVideo();
+
 
 const watchLaterHandler = (token, video) =>{
 videoState.watchLater.some((item) => item._id === video._id) ?
@@ -41,10 +43,10 @@ return (
             <div className="video-list">
                 {videos.map((video)=>(
                 <article className="video-card">
-                    <img src={video.cover} alt="" className="card-img" />
+                    <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/>
                     <div className="content">
                         <div className="card-head">
-                            <p className="title">{video.title}</p>
+                            <p className="title" onClick={()=>getHistory(token, video)}>{video.title}</p>
                             <span className="dp-span">{ drop === true ? (
                                 <button className="dp-btn" onClick={()=> setDrop(false)}><i
                                         class="fas fa-ellipsis-h"></i></button> ) :
@@ -78,10 +80,9 @@ return (
                             <span className="date">{video.date}</span>
                         </div>
                     </div>
+                    
                 </article>
                 ))}
-
-
             </div>
         </div>
     </main>
