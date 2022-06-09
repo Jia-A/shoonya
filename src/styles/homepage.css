@@ -11,7 +11,7 @@
     width: 100%;
     background-color: #24292c;
     border-radius: 5px;
-
+    align-self: flex-start;
 }
 .chips{
     background-color: #12191d;

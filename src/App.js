@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import { History } from "./pages/history";
 import { Liked } from "./pages/liked";
 import { WatchLater } from "./pages/watchLater";
+import { Stream } from "./pages/stream";
 import { PrivateRoute } from "./components/private.jsx";
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path = "/homepage" element = { <Homepage/> } />
         <Route path = "/login" element = { <Login/> } />
         <Route path = "/signup" element = { <Signup/> } />
+        <Route path = "/stream" element = { <Stream/>} />
 
         {/* Private Routes */}
         <Route element = { <PrivateRoute/>}>

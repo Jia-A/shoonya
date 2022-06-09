@@ -26,6 +26,10 @@ videoState.liked.some((item) => item._id === video._id) ?
 removeLikes(token, video._id) : getLikes(token, video)
 }
 
+const playVideoHandler = (token, video) =>{
+    getHistory(token, video)
+    
+}
 return (
 <div className="App">
     <Navbar sidebar={sidebar} setSidebar={setSidebar} />
