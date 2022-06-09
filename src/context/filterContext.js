@@ -34,7 +34,6 @@ const FilterProvider = ({children}) =>{
 
 
     const categoryFilter = (videos, filterOnCategory) =>{
-        console.log("in category context")
         if(videos != [] || videos != "undefined"){
             const showVideos = [...videos];
             if (filterOnCategory != "") {
@@ -47,10 +46,7 @@ const FilterProvider = ({children}) =>{
     }
 
     const filteredVideos = (videos, filterState) =>{
-        console.log("in return filter")
-        
         const { filterByCategory } = filterState;
-        console.log(filterByCategory)
         const filterCat = categoryFilter(videos, filterByCategory)
         return filterCat;
     }
