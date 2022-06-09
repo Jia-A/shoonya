@@ -1,5 +1,6 @@
 import { Navbar } from "../components/navbar";
 import { Sidebar } from "../components/sidebar";
+import { Link } from "react-router-dom"
 import "../styles/homepage.css"
 import "../root.css"
 import { useState } from "react";
@@ -41,14 +42,15 @@ return (
                 <ul className="category-list">
                     <li className="list-item">All</li>
                     {categories.map((category)=>(
-                    <li className="list-item">{category.categoryName}</li>
+                    <li className="list-item" key={category._id}>{category.categoryName}</li>
                     ))}
                 </ul>
             </div>
             <div className="video-list">
                 {videos.map((video)=>(
-                <article className="video-card">
-                    <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/>
+                <article className="video-card" key={video._id}>
+                    <Link to={`/homepage/${video._id}`}>
+                    <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/></Link>
                     <div className="content">
                         <div className="card-head">
                             <p className="title" onClick={()=>getHistory(token, video)}>{video.title}</p>

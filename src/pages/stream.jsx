@@ -4,17 +4,25 @@ import "../styles/homepage.css"
 import "../root.css"
 import "../styles/stream.css"
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
 import ReactPlayer from "react-player";
 
 const Stream = () =>{
     const [sidebar, setSidebar] = useState(true);
-    // const [ drop, setDrop ] = useState(false);
     const { token } = useAuth();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes } = useVideo();
-    const { videos, categories } = videoState;                           
-   
+    const { videos, categories } = videoState;   
+    const { videoID } = useParams();  
+    
+    const videoExist = (id) =>{
+    const currentVideo = videos.find((video) => video._id === id)
+    return currentVideo;
+    }
+
+
+    const playingVideo = videoExist(videoID);
 
 const watchLaterHandler = (token, video) =>{
 videoState.watchLater.some((item) => item._id === video._id) ?
@@ -27,6 +35,8 @@ videoState.liked.some((item) => item._id === video._id) ?
 removeLikes(token, video._id) : getLikes(token, video)
 }
 
+
+
 return (
 <div className="App">
     <Navbar sidebar={sidebar} setSidebar={setSidebar} />
@@ -34,7 +44,21 @@ return (
         {sidebar ?
         <Sidebar /> : null}
         <div className="player-div"> 
-            <ReactPlayer url="https://www.youtube.com/watch?v=JMNFWiEONfI" width="80%" height="450px"></ReactPlayer>
+                <ReactPlayer url={`https://www.youtube.com/watch?v=${videoID}`} controls={true} width="80%" height="450px"></ReactPlayer>
+            <div className="video-details">
+                <div className="title-div">
+                    <span className="vid-title">{playingVideo.title}</span>
+                </div>
+                <div className="det-div">
+                    <span>{playingVideo.date}</span>
+                    <span>{playingVideo.views}</span>
+                </div>
+                <div className="det-div">
+                    <button className="dp-btn">Playlist</button>
+                    <button className="dp-btn">Playlist</button>
+                    <button className="dp-btn">Playlist</button>
+                </div>
+            </div>
         </div>
     </main>
 </div>

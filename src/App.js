@@ -20,7 +20,7 @@ function App() {
         <Route path = "/homepage" element = { <Homepage/> } />
         <Route path = "/login" element = { <Login/> } />
         <Route path = "/signup" element = { <Signup/> } />
-        <Route path = "/stream" element = { <Stream/>} />
+        <Route path = "/homepage/:videoID" element = { <Stream/>} />
 
         {/* Private Routes */}
         <Route element = { <PrivateRoute/>}>
