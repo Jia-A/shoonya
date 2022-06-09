@@ -6,7 +6,7 @@
 export const videos = [
   {
     _id: "VFXJnbnN5ro",
-    title: "What is a Nebula",
+    title: "What is a Nebula?",
     creator: "Atlas Pro",
     category : "Nebula",
     date : "1 year ago",
@@ -16,7 +16,7 @@ export const videos = [
   },
   {
     _id: "EFO_bsg1sw8",
-    title: "What is a Star",
+    title: "What is a Star?",
     creator: "National Geographic",
     category : "Star",
     date : "3 years ago",
@@ -26,7 +26,7 @@ export const videos = [
   },
   {
     _id: "tI_C2PP5hcw",
-    title: "What is a Planet",
+    title: "What is a Planet?",
     creator: "Alien Planetology",
     category : "Planet",
     date : "6 years ago",
@@ -36,7 +36,7 @@ export const videos = [
   },
   {
     _id: "uBbxXNhZ78c",
-    title: "What is Black Matter",
+    title: "What is Black Matter?",
     creator: "Science Time",
     category : "Black Matter",
     date : "1 year ago",
@@ -46,7 +46,7 @@ export const videos = [
   },
   {
     _id: "aNpjckf8DhQ",
-    title: "What is a Galaxy",
+    title: "What is a Galaxy?",
     creator: "JWST",
     category : "Galaxy",
     date : "3 years ago",

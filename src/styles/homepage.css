@@ -103,6 +103,7 @@
     border: none;
     cursor: pointer;
     color: #a0b2b9;
+    text-align: center;
 }
 .dp-ul{
     text-align:right;
@@ -140,4 +141,16 @@
     font-size: 1.1rem;
     text-decoration: underline;
     cursor: pointer;
+}
+.card-icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    background-color: #24292c;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+
 }

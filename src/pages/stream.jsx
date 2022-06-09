@@ -54,9 +54,15 @@ return (
                     <span>{playingVideo.views}</span>
                 </div>
                 <div className="det-div">
-                    <button className="dp-btn">Playlist</button>
-                    <button className="dp-btn">Playlist</button>
-                    <button className="dp-btn">Playlist</button>
+                    <button className="dp-btn vid-btn" onClick={()=>likesHandler( token, playingVideo )}><i className="fas fa-thumbs-up card-icon"></i>{videoState.liked.some((item)=> item._id === playingVideo._id) ?
+                                "Unlike" :
+                                "Like"
+                                }</button>
+                    <button className="dp-btn vid-btn" onClick={()=>watchLaterHandler( token, playingVideo )}><i className="fas fa-clock card-icon"></i>{ videoState.watchLater.some((item)=>item._id===playingVideo._id) ?
+                                "Undo Watch Later" :
+                                "Watch Later"
+                                }</button>
+                    <button className="dp-btn vid-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
                 </div>
             </div>
         </div>
