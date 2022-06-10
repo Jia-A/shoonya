@@ -36,6 +36,7 @@
     border-radius: 5px;
     text-align: center;
     color: #a0b2b9 ;
+    cursor: pointer;
 }
 .video-list{
     display: flex;

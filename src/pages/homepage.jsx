@@ -5,13 +5,15 @@ import "../root.css"
 import { useState } from "react";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
+import { useFilter } from "../context/filterContext";
 
 const Homepage = () =>{
     const [sidebar, setSidebar] = useState(true);
     const [ drop, setDrop ] = useState(false);
     const { token } = useAuth();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory } = useVideo();
-    const { videos, categories } = videoState;                           
+    const { videos, categories } = videoState;    
+    const { filterState, filterDispatch, filteredVideos } = useFilter();                       
    
 
 
@@ -35,14 +37,14 @@ return (
         <div className="right-body">
             <div className="chips">
                 <ul className="category-list">
-                    <li className="list-item">All</li>
+                    <li className="list-item" onClick={()=>filterDispatch({type : "CLEAR_FILTER", payload : {...filterState.allVideos}})}>All</li>
                     {categories.map((category)=>(
-                    <li className="list-item">{category.categoryName}</li>
+                    <li className="list-item" onClick={(e)=>filterDispatch({type : "CATEGORY", payload : category.categoryName})}>{category.categoryName}</li>
                     ))}
                 </ul>
-            </div>
+            </div> 
             <div className="video-list">
-                {videos.map((video)=>(
+                {filteredVideos(videos, filterState).map((video)=>(
                 <article className="video-card">
                     <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/>
                     <div className="content">
