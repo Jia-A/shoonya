@@ -7,10 +7,14 @@ import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
 const History = () =>{
     const [sidebar, setSidebar] = useState(true);
-    const [ drop, setDrop ] = useState(false);
-    const { videoState, removeHistory, clearHistory } = useVideo();
+    const { videoState, removeHistory, clearHistory, getLikes, removeLikes } = useVideo();
     const { history } = videoState;
     const { token } = useAuth();
+
+    const likesHandler = (token, video) =>{
+        videoState.liked.some((item) => item._id === video._id) ?
+        removeLikes(token, video._id) : getLikes(token, video)
+        }
     return (
         <div className="App">
             <Navbar sidebar={sidebar} setSidebar={setSidebar}/>
@@ -29,25 +33,23 @@ const History = () =>{
                              <div className="content">
                                  <div className="card-head">
                                      <p className="title">{video.title}</p>
-                                     <span className="dp-span">{ drop === true ? (
-                 <button className="dp-btn" onClick={()=> setDrop(false)}><i class="fas fa-ellipsis-h"></i></button> ) : 
-                 ( <button className="dp-btn" onClick={()=> setDrop(true)}><i class="fas fa-ellipsis-v"></i></button> ) }</span>
                                  </div>
-                                 
-                 {drop? (
-                     <ul className="dp-ul">
-                 <li className="dp-item"><span><i className="fas fa-clock
-                 card-icon"></i></span> Watch Later</li>
-                 <li className="dp-item" onClick={()=>removeHistory(token, video._id)}><span><i className="fas fa-thumbs-up card-icon"></i></span> Remove from History</li>
-                 <li className="dp-item"><span><i className="fas fa-list card-icon"></i></span> Playlist</li>
-                 </ul>
-             ): null}
-             
                                  <p className="creator">{video.creator}</p>
                                  <div className="views-date">
                                      <span className="views">{video.views}</span>
                                      <span className="date">{video.date}</span>
                                  </div>
+                                 <div className="card-icons">
+                        <button className="dp-btn" onClick={()=>likesHandler( token, video )}><i className="fas fa-thumbs-up card-icon"></i>{videoState.liked.some((item)=> item._id === video._id) ?
+                                "Unlike" :
+                                "Like"
+                                }</button>
+                    <button className="dp-btn" onClick={()=>removeHistory( token, video._id )}><i className="fas fa-clock card-icon"></i>{ videoState.watchLater.some((item)=>item._id===video._id) ?
+                                "Remove from History" :
+                                "History"
+                                }</button>
+                    <button className="dp-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
+                        </div>
                              </div>
                          </article>
                         ))}

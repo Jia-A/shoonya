@@ -129,19 +129,22 @@ const removeWatchLaterVideos = async ( token, _id) =>{
         console.log(error)
     }
 }
-const clearHistoryVideos = async ( token) =>{
+const clearHistoryVideos = async ( token ) =>{
     try {
         const response = await axios({
             method : "delete",
             url : "/api/user/history/all",
             headers: { authorization : token }
         })
+        if(response.status === 200 || response.status === 201){
+            return response.data
+        }
     }
     catch(error)
     {
         console.log(error)
     }   
-}       
+}      
           
 
 const getLikedVideos = async () =>{

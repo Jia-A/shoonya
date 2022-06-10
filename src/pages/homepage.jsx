@@ -10,7 +10,6 @@ import { useFilter } from "../context/filterContext";
 
 const Homepage = () =>{
     const [sidebar, setSidebar] = useState(true);
-    // const [ drop, setDrop ] = useState(false);
     const { token } = useAuth();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory } = useVideo();
     const { videos, categories } = videoState;    
@@ -29,10 +28,6 @@ videoState.liked.some((item) => item._id === video._id) ?
 removeLikes(token, video._id) : getLikes(token, video)
 }
 
-const playVideoHandler = (token, video) =>{
-    getHistory(token, video)
-    
-}
 return (
 <div className="App">
     <Navbar sidebar={sidebar} setSidebar={setSidebar} />
@@ -58,12 +53,7 @@ return (
                     <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/></Link>
                     <div className="content">
                         <div className="card-head">
-                            <p className="title" onClick={()=>getHistory(token, video)}>{video.title}</p>
-                            {/* <span className="dp-span">{ drop === true ? (
-                                <button className="dp-btn" onClick={()=> setDrop(false)}><i
-                                        class="fas fa-ellipsis-h"></i></button> ) :
-                                ( <button className="dp-btn" onClick={()=> setDrop(true)}><i
-                                        class="fas fa-ellipsis-v"></i></button> ) }</span> */}
+                            <p className="title">{video.title}</p>
                         </div>
                         <p className="creator">{video.creator}</p>
                         <div className="views-date">

@@ -176,7 +176,7 @@ const VideoProvider = ({children}) => {
     }
     
     
-    const clearHistory = async ( token) =>{
+    const clearHistory = async (token) =>{
         try{
             const response = await clearHistoryVideos(token)
             videoDispatch({type : "CLEAR_HISTORY", payload : response.history})
