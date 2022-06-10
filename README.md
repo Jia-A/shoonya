@@ -7,12 +7,12 @@
 <h3 align="center">Shoonya is a video library for cosmos related stuff. Fall into the un-ending universe and know about it in depth. </h3>
 
 <p align="center">
-  <a href="https://shoonya.netlify.app/">Check Out the Website</a>
+  <a href="https://shoonya-cosmos.netlify.app/">Check Out the Website</a>
 <br />
 
 ##  _How To Use_
 
-Explore [Shoonya](https://shoonya.netlify.app/) and start your journey of where do you actually live.
+Explore [Shoonya](https://shoonya-cosmos.netlify.app/) and start your journey of where do you actually live.
 
 <br />
 
