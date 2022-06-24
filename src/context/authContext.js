@@ -3,6 +3,7 @@ import {
     createContext,
     useState
 } from "react";
+import toast from 'react-hot-toast';
 import {
     useNavigate
 } from "react-router-dom";
@@ -31,8 +32,10 @@ const AuthProvider = ({
                 setUser(response.data.foundUser);
                 navigate("/homepage")
             }
+            toast.success("Login Successful")
         } catch (err) {
             console.log(err)
+            toast.error("Login Failed")
         }
 
     }
@@ -48,8 +51,10 @@ const AuthProvider = ({
                 setUser(response.data.createdUser)
                 navigate("/homepage")
             }
+            toast.success("Signup Successful")
         } catch (err) {
             console.log(err)
+            toast.error("Signup Failed")
         }
     }
 

@@ -1,4 +1,5 @@
 import "./App.css";
+import toast, { Toaster } from 'react-hot-toast';
 import { Homepage } from "./pages/homepage";
 import { Landing } from "./pages/landing";
 import { Login } from "./pages/login";
@@ -14,6 +15,7 @@ import { PrivateRoute } from "./components/private.jsx";
 function App() {
   return (
     <div className="App">
+      <Toaster/>
       <Routes>
         {/* Open Routes */}
         <Route path = "/" element = { <Landing/> } />
