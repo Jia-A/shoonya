@@ -6,10 +6,12 @@ import "../root.css";
 import "../styles/playlists.css"
 import { useState } from "react";
 import { useVideo } from "../context/videoContext";
+import { useAuth } from "../context/authContext";
 
 const Playlist = () =>{
-    const { videoState } = useVideo();
+    const { videoState, deletePlaylist } = useVideo();
     const { playlists } = videoState;
+    const { token } = useAuth();
     const [sidebar, setSidebar] = useState(true);
 
     const playlistCover = (playlist) => {
@@ -25,6 +27,7 @@ const Playlist = () =>{
         {sidebar ?
         <Sidebar /> : null}
         <div className="right-body">
+            <div className="video-list">
             {playlists.length === 0 && <h2 className="no-playlist">No playlist to show</h2>}
             {playlists.length > 0 &&
              playlists.map((playlist)=> (
@@ -39,7 +42,7 @@ const Playlist = () =>{
                 <div className="content">
                     <div className="views-date">
                         <p className="title">{playlist.title}</p>
-                        <span className="trash-icon"><i className="fas fa-trash"></i></span>
+                        <span className="trash-icon" onClick={() => deletePlaylist(playlist._id, token)}><i className="fas fa-trash"></i></span>
                     </div>
                 </div>
                 </article>
@@ -47,6 +50,7 @@ const Playlist = () =>{
             )
             ) 
             } 
+            </div>
         </div>
         </main>
         </div>

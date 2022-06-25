@@ -215,19 +215,34 @@ const makeNewPlaylist = async ( playlistName, token ) =>{
     }
 }
 
-// const getVideosFromPlaylist = async () => {
-//     const { token } = useAuth();
-//     try { 
-//         const response = await axios({
-//             method : "get",
-//             url : `/api/user/playlists/`
-//         }).get("/api/user/playlists/", { headers : { authorization : token }})
-//         if(response.status === 200) return response.data
-//     }
-//     catch(error){
-//         console.log(error.response)
-//     }
-// }
+const getVideosFromPlaylist = async () => {
+    const { token } = useAuth();
+    try { 
+        const response = await axios({
+            method : "get",
+            url : `/api/user/playlists/`
+        }).get("/api/user/playlists/", { headers : { authorization : token }})
+        if(response.status === 200) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+const deleteCompletePlaylist = async ( playlistID, token) =>{
+    try {
+        const response = await axios({
+            method : "delete",
+            url : `/api/user/playlists/${playlistID}`,
+            headers : { authorization : token }
+        })
+        if(response.status === 200 || response.status === 201) 
+            return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
 const addToPlaylist = async (video, playlistID, token ) =>{
     try {
         const response = await axios({
@@ -260,5 +275,5 @@ const deleteFromPlaylist = async ( videoID, playlistID, token ) =>{
 }
 
 
-export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos, getHistoryVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, getAllPlaylists, makeNewPlaylist, addToPlaylist, deleteFromPlaylist}
+export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos, getHistoryVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, getAllPlaylists, getVideosFromPlaylist, makeNewPlaylist, deleteCompletePlaylist, addToPlaylist, deleteFromPlaylist}
 

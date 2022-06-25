@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, makeNewPlaylist, deleteFromPlaylist, addToPlaylist } from "../apis/videos";
+import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, makeNewPlaylist, deleteFromPlaylist, addToPlaylist, deleteCompletePlaylist } from "../apis/videos";
 
 
 
@@ -97,6 +97,12 @@ const VideoProvider = ({children}) => {
         return {
             ...videoState,
             playlists: remainPlaylist
+        }
+
+        case "DELETE_PLAYLIST" : 
+        return {
+            ...videoState,
+            playlists : action.payload
         }
         }
     }
@@ -207,11 +213,21 @@ const VideoProvider = ({children}) => {
         navigate("/login")
     }
     }
-    
+
     const deleteVideoFromPlaylist = async (videoID, playlistID, token) =>{
         try{
             const response = await deleteFromPlaylist( videoID, playlistID, token )
             videoDispatch({type : "DELETE_FROM_PLAYLIST", payload : response.playlist})
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    const deletePlaylist = async (playlistID, token) =>{
+        try{
+            const response = await deleteCompletePlaylist( playlistID, token )
+            videoDispatch({type : "DELETE_PLAYLIST", payload : response.playlists})
         }
         catch(error){
             console.log(error)
@@ -263,7 +279,7 @@ const VideoProvider = ({children}) => {
     }
     
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory, createPlaylist, addVideoToPlaylist, deleteVideoFromPlaylist}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory, createPlaylist, deletePlaylist, addVideoToPlaylist, deleteVideoFromPlaylist}}>{children}</VideoContext.Provider>
 
 
     );

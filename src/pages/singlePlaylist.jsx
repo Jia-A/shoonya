@@ -35,6 +35,7 @@ const SinglePlaylist = () =>{
         {sidebar ?
         <Sidebar /> : null}
         <div className="right-body">
+            <div className="video-list">
         {currentPlaylist.videos.length > 0 && currentPlaylist.videos.map((video) => <article className="video-card" key={video._id}>
                     <Link to={`/homepage/${video._id}`}>
                     <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/></Link>
@@ -61,7 +62,9 @@ const SinglePlaylist = () =>{
                     </div>
                 </article>)}
             </div>
+            </div>
             </main>
+            
         </div>
     )
 }
