@@ -12,7 +12,9 @@ const Sidebar = () =>{
                 <li className="side-item"><span><i className="fas fa-compass"></i></span>Explore</li>
                 </NavLink>
                 
-                <li className="side-item"><span><i className="fas fa-list"></i></span>Playlist</li>
+                <NavLink to="/playlists" className="link-style">
+                <li className="side-item"><span><i className="fas fa-list"></i></span>Playlists</li>
+                </NavLink>
                 
                 <NavLink to="/liked" className="link-style">
                 <li className="side-item"><span><i className="fas fa-thumbs-up"></i></span>Liked Videos</li>
