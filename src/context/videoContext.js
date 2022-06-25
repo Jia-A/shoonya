@@ -1,8 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
-import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos } from "../apis/videos";
+import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, makeNewPlaylist, deleteFromPlaylist, addToPlaylist } from "../apis/videos";
 
 
 
@@ -13,7 +12,9 @@ const initialState = {
     categories : [],
     history : [],
     watchLater : [],
-    liked : []
+    liked : [],
+    playlists : [],
+
 }
 
 const VideoProvider = ({children}) => {
@@ -72,9 +73,31 @@ const VideoProvider = ({children}) => {
             return { 
                 ...videoState,
                 liked : action.payload,
-
-
             }
+            case "NEW_PLAYLIST" : 
+            return {
+                ...videoState,
+                playlists : action.payload,
+            }
+            case "ADD_TO_PLAYLIST" : 
+                const newPlaylist = videoState.playlists.reduce((previous, current)=>{
+                    return action.payload._id === current._id ? [...previous, action.payload] : [...previous, current]
+                },[])
+    
+            return {
+                ...videoState,
+                playlists: newPlaylist
+            }
+            
+            case "DELETE_FROM_PLAYLIST" : 
+            const remainPlaylist = videoState.playlists.reduce((previous, current)=>{
+                return action.payload._id === current._id ? [...previous, action.payload] : [...previous, current]
+            },[])
+
+        return {
+            ...videoState,
+            playlists: remainPlaylist
+        }
         }
     }
     const [ videoState, videoDispatch ] = useReducer( videoFunction, initialState);
@@ -153,7 +176,47 @@ const VideoProvider = ({children}) => {
     }
     }
 
+    const createPlaylist = async (playListName, token ) =>{
+        if(token){
+        try{
+            const response = await makeNewPlaylist( playListName, token)
+            videoDispatch({type : "NEW_PLAYLIST", payload : response.playlists})
+            console.log(response.playlists)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        navigate("/login")
+    }
+    }
 
+    const addVideoToPlaylist = async (video, playlistID, token) =>{
+        if(token){
+        try{
+            const response = await addToPlaylist(video, playlistID, token)
+            videoDispatch({type : "ADD_TO_PLAYLIST", payload : response.playlist})
+            console.log(response.playlist)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+    else{
+        navigate("/login")
+    }
+    }
+    
+    const deleteVideoFromPlaylist = async (videoID, playlistID, token) =>{
+        try{
+            const response = await deleteFromPlaylist( videoID, playlistID, token )
+            videoDispatch({type : "DELETE_FROM_PLAYLIST", payload : response.playlist})
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     const removeHistory = async ( token, _id) =>{
         try{
             const response = await removeHistoryVideos(token, _id)
@@ -200,7 +263,7 @@ const VideoProvider = ({children}) => {
     }
     
     return (
-        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory}}>{children}</VideoContext.Provider>
+        <VideoContext.Provider value={{videoState, videoDispatch, getLikes, removeLikes, getWatchLater, removeWatchLater , getHistory, removeHistory, clearHistory, createPlaylist, addVideoToPlaylist, deleteVideoFromPlaylist}}>{children}</VideoContext.Provider>
 
 
     );
