@@ -42,7 +42,7 @@ const Playlist = () =>{
                 <div className="content">
                     <div className="views-date">
                         <p className="title">{playlist.title}</p>
-                        <span className="trash-icon" onClick={() => deletePlaylist(playlist._id, token)}><i className="fas fa-trash"></i></span>
+                        <span className="trash-icon dp-btn" onClick={() => deletePlaylist(playlist._id, token)}><i className="fas fa-trash"></i></span>
                     </div>
                 </div>
                 </article>
