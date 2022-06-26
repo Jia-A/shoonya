@@ -1,8 +1,7 @@
-import { createContext, useContext, useReducer } from "react";
-import { useEffect } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 import { getCategories, getVideos, removeLikedVideos, removeWatchLaterVideos, postWatchLaterVideos, postLikedVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, makeNewPlaylist, deleteFromPlaylist, addToPlaylist, deleteCompletePlaylist } from "../apis/videos";
-
 
 
 const VideoContext = createContext(null);
@@ -155,14 +154,17 @@ const VideoProvider = ({children}) => {
             try{
                 const response = await postWatchLaterVideos( token, video )
                 videoDispatch({ type : "ADD_WATCH_LATER", payload : response.watchlater})  
-
+                toast.success("Video added to watch later!")
             }
             catch(error){
-                console.log(error)
+                console.log(error)   
+                toast.error("Cannot add to watch later!")
             }
         }
         else{
             navigate("/login")
+            toast.error("You're not logged in!")
+
         }
     }    
 
@@ -171,14 +173,16 @@ const VideoProvider = ({children}) => {
         try {
             const response = await postLikedVideos( token ,video)
             videoDispatch({type : "ADD_LIKED", payload : response.likes})
-
+            toast.success("Video added to likes!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot add video to likes!")
         }
     }
     else {
         navigate("/login")
+        toast.error("You're not logged in!")
     }
     }
 
@@ -187,14 +191,16 @@ const VideoProvider = ({children}) => {
         try{
             const response = await makeNewPlaylist( playListName, token)
             videoDispatch({type : "NEW_PLAYLIST", payload : response.playlists})
-            console.log(response.playlists)
+            toast.success("New playlist created!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot create new playlist!")
         }
     }
     else {
         navigate("/login")
+        toast.error("You're not logged in!")
     }
     }
 
@@ -203,14 +209,16 @@ const VideoProvider = ({children}) => {
         try{
             const response = await addToPlaylist(video, playlistID, token)
             videoDispatch({type : "ADD_TO_PLAYLIST", payload : response.playlist})
-            console.log(response.playlist)
+            toast.success("Video added to playlist!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot add video to playlist!")
         }
     }
     else{
         navigate("/login")
+        toast.error("You're not logged in!")
     }
     }
 
@@ -218,9 +226,11 @@ const VideoProvider = ({children}) => {
         try{
             const response = await deleteFromPlaylist( videoID, playlistID, token )
             videoDispatch({type : "DELETE_FROM_PLAYLIST", payload : response.playlist})
+            toast.success("Video deleted from playlist!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot remove video from playlist!")
         }
     }
 
@@ -228,9 +238,11 @@ const VideoProvider = ({children}) => {
         try{
             const response = await deleteCompletePlaylist( playlistID, token )
             videoDispatch({type : "DELETE_PLAYLIST", payload : response.playlists})
+            toast.success("Playlist deleted!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot delete playlist!")
         }
     }
     const removeHistory = async ( token, _id) =>{
@@ -240,6 +252,7 @@ const VideoProvider = ({children}) => {
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot remove video from history!")
         }
 
     }
@@ -248,9 +261,11 @@ const VideoProvider = ({children}) => {
         try{
             const response = await removeWatchLaterVideos(token, _id)
             videoDispatch({type : "REMOVE_WATCH_LATER", payload : response.watchlater})
+            toast.success("Video removed from watch later!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot remove video from watch later!")
         }
     }
     
@@ -259,9 +274,11 @@ const VideoProvider = ({children}) => {
         try{
             const response = await clearHistoryVideos(token)
             videoDispatch({type : "CLEAR_HISTORY", payload : response.history})
+            toast.success("History cleared!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot clear history!")
         }
 
     }
@@ -270,9 +287,11 @@ const VideoProvider = ({children}) => {
         try{
             const response = await removeLikedVideos(token, _id)
             videoDispatch({type : "REMOVE_LIKED_VIDEOS", payload : response.likes})
+            toast.success("Video removed from likes!")
         }
         catch(error){
             console.log(error)
+            toast.error("Cannot remove video from likes!")
         }
 
 
