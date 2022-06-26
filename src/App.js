@@ -6,8 +6,10 @@ import { Signup } from "./pages/signup";
 import { Routes, Route } from "react-router-dom";
 import { History } from "./pages/history";
 import { Liked } from "./pages/liked";
+import { Playlist } from "./pages/playlists";
 import { WatchLater } from "./pages/watchLater";
 import { Stream } from "./pages/stream";
+import { SinglePlaylist } from "./pages/singlePlaylist";
 import { PrivateRoute } from "./components/private.jsx";
 
 
@@ -27,6 +29,9 @@ function App() {
           <Route path = "/history" element = { <History/> } />
           <Route path = "/liked" element = { <Liked/>} />
           <Route path = "/watchLater" element = { <WatchLater/>} />
+          <Route path = "/playlists" element = { <Playlist/>} />
+          <Route path = "/playlists/:playlistID" element = { <SinglePlaylist/>} />
+          
         </Route>
 
       </Routes>

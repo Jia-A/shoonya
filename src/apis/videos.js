@@ -184,7 +184,96 @@ const  removeLikedVideos = async ( token, _id) =>{
     }
 }
 
+const getAllPlaylists = async () => {
+    const { token } = useAuth();
+    try { 
+        const response = await axios.get("/api/user/playlists", { headers : { authorization : token }})
+        if(response.status === 200) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
+const makeNewPlaylist = async ( playlistName, token ) =>{
+    try{
+        const response = await axios.post("/api/user/playlists", 
+          {
+            playlist: {
+              title: playlistName,
+              description: "",
+            },
+          },
+          {
+            headers : { authorization : token}
+          } 
+          )
+        if(response.status === 200 || response.status === 201) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
+const getVideosFromPlaylist = async () => {
+    const { token } = useAuth();
+    try { 
+        const response = await axios({
+            method : "get",
+            url : `/api/user/playlists/`
+        }).get("/api/user/playlists/", { headers : { authorization : token }})
+        if(response.status === 200) return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+const deleteCompletePlaylist = async ( playlistID, token) =>{
+    try {
+        const response = await axios({
+            method : "delete",
+            url : `/api/user/playlists/${playlistID}`,
+            headers : { authorization : token }
+        })
+        if(response.status === 200 || response.status === 201) 
+            return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
+
+const addToPlaylist = async (video, playlistID, token ) =>{
+    try {
+        const response = await axios({
+            method : "post",
+            headers : { authorization : token },
+            data : { video },
+            url : `/api/user/playlists/${playlistID}`,
+        })
+        if(response.status === 200 || response.status === 201)
+            return response.data
+    }
+    catch(error) {
+        console.log(error.response)
+    }
+}
+
+const deleteFromPlaylist = async ( videoID, playlistID, token ) =>{
+    try{
+        const response = await axios({
+            method : "delete",
+            headers : { authorization : token },
+            url : `/api/user/playlists/${playlistID}/${videoID}`
+        })
+        if(response.status === 200 || response.status === 201) 
+            return response.data
+    }
+    catch(error){
+        console.log(error.response)
+    }
+}
 
 
-export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos, getHistoryVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos}
+export { getVideos, getCategories, getLikedVideos, postLikedVideos, removeLikedVideos, getWatchLaterVideos, postWatchLaterVideos, removeWatchLaterVideos, getHistoryVideos, postHistoryVideos, removeHistoryVideos, clearHistoryVideos, getAllPlaylists, getVideosFromPlaylist, makeNewPlaylist, deleteCompletePlaylist, addToPlaylist, deleteFromPlaylist}
 
