@@ -25,6 +25,7 @@ Explore [Shoonya](https://shoonya-cosmos.netlify.app/) and start your journey of
 - Have a history of all the videos you watched so far.
 - Login and signup.
 - Filter videos according to category.
+- Make playlists and add videos to them.
 
 <br />
 
