@@ -44,7 +44,7 @@ return (
         {sidebar ?
         <Sidebar /> : null}
         <div className="player-div"> 
-                <ReactPlayer url={`https://www.youtube.com/watch?v=${videoID}`} controls={true} width="80%" height="450px"></ReactPlayer>
+                <ReactPlayer url={`https://www.youtube.com/watch?v=${videoID}`} controls={true} playing={true} width="80%" height="450px"></ReactPlayer>
             <div className="video-details">
                 <div className="title-div">
                     <span className="vid-title">{playingVideo.title}</span>

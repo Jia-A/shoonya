@@ -1,4 +1,3 @@
-
 .main-cont{
     display: flex;
     margin-top: 20px;
@@ -179,3 +178,10 @@
     color: #12191d;
     background-color: #a0b2b9;
 }
+
+@media screen and (max-width: 350px) {
+    .card-img{
+        width: 13rem;
+        height: 10rem;
+    } 
+} 

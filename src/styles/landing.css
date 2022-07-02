@@ -1,4 +1,3 @@
-
 .body-cont{
     height: 100vh;
 }
@@ -28,3 +27,18 @@
     text-decoration: underline 1px solid #a0b2b9;
     color: #7c3935;
 }
+
+ @media screen and (max-width: 1200px) {
+    .content-box{
+        top : 80%;
+     } 
+} 
+
+@media screen and (max-width: 600px) {
+    .content-box{
+        top : 100%;
+        margin-bottom: 20px;
+        right : 25%;
+        height: auto;
+     } 
+} 

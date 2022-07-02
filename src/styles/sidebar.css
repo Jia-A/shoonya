@@ -23,3 +23,14 @@ li{
 .link-style{
     text-decoration: none;
 }
+
+@media screen and (max-width: 570px) {
+    .items{
+        padding: 5px;
+    }   
+}
+/* @media screen and (max-width: 400px) {
+    .items{
+        padding: 0px;
+    }  
+} */

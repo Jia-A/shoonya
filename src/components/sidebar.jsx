@@ -17,7 +17,7 @@ const Sidebar = () =>{
                 </NavLink>
                 
                 <NavLink to="/liked" className="link-style">
-                <li className="side-item"><span><i className="fas fa-thumbs-up"></i></span>Liked Videos</li>
+                <li className="side-item"><span><i className="fas fa-thumbs-up"></i></span>Liked</li>
                 </NavLink>
                 <NavLink to="/watchLater" className="link-style">
                 <li className="side-item"><span><i className="fas fa-clock"></i></span>Watch Later</li>
