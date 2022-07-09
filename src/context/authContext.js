@@ -60,7 +60,7 @@ const AuthProvider = ({
 
     const logoutHandler = () => {
         navigate("/")
-
+        toast.success("You're logged out!")
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setToken(null);

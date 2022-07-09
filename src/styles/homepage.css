@@ -80,7 +80,7 @@
     justify-content: space-around;
     align-items: center;
 }
-.card-head{
+.video-card-head{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -177,6 +177,16 @@
 .right-end:hover{
     color: #12191d;
     background-color: #a0b2b9;
+}
+
+
+@media  screen and (max-width : 600px) {
+    .sidebar-cont{
+        display: none;
+    }
+    .right-body, .video-list, .chips{
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width: 350px) {

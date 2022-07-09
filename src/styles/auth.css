@@ -15,6 +15,7 @@
     justify-content: center;
     background-color: #1B262C;
     border-radius: 5px;
+    text-align: center;
 
 }
 .signup-form{
@@ -148,6 +149,7 @@ fieldset{
 }
 .btn-div{
     text-align: center;
+    
 }
 .new-ac-btn{
     width : 80%;
