@@ -12,7 +12,6 @@ const Playlist = () =>{
     const { videoState, deletePlaylist } = useVideo();
     const { playlists } = videoState;
     const { token } = useAuth();
-    const [sidebar, setSidebar] = useState(true);
 
     const playlistCover = (playlist) => {
         return playlist.videos.length > 0 &&
@@ -22,10 +21,12 @@ const Playlist = () =>{
 
     return(
         <div className="App">
-            <Navbar sidebar={sidebar} setSidebar={setSidebar} />
+            <Navbar />
             <main className="main-cont">
-        {sidebar ?
-        <Sidebar /> : null}
+            <div className="sidebar-cont">
+
+        <Sidebar />
+        </div>
         <div className="right-body">
             <div className="video-list">
             {playlists.length === 0 && <h2 className="no-playlist">No playlist to show</h2>}

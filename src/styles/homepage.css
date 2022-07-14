@@ -1,4 +1,3 @@
-
 .main-cont{
     display: flex;
     margin-top: 20px;
@@ -81,7 +80,7 @@
     justify-content: space-around;
     align-items: center;
 }
-.card-head{
+.video-card-head{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -179,3 +178,20 @@
     color: #12191d;
     background-color: #a0b2b9;
 }
+
+
+@media  screen and (max-width : 600px) {
+    .sidebar-cont{
+        display: none;
+    }
+    .right-body, .video-list, .chips{
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .card-img{
+        width: 13rem;
+        height: 10rem;
+    } 
+} 

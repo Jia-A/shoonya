@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 10px;
     background-color: #1B262C;
+    /* width: auto; */
 }
 .nav-left{
     display: flex;
@@ -26,4 +27,24 @@
 .brand-quote{
     font-size: small;
     margin: 0px;
+}
+
+.nav-buttons{
+    display: flex;
+    gap: 7px;
+}
+
+.ham{
+    display: none;
+}
+
+@media  screen and (max-width : 600px) {
+    .ham{
+        display: block;
+    }
+}
+@media screen and (max-width: 415px) {
+    .nav-cont{
+        width: 100%;
+    }   
 }

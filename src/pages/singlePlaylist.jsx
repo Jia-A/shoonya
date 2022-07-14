@@ -30,17 +30,19 @@ const SinglePlaylist = () =>{
 
     return(
         <div className="App">
-            <Navbar sidebar={sidebar} setSidebar={setSidebar} />
+            <Navbar/>
             <main className="main-cont">
-        {sidebar ?
-        <Sidebar /> : null}
+            <div className="sidebar-cont">
+        
+        <Sidebar />
+        </div>
         <div className="right-body">
             <div className="video-list">
         {currentPlaylist.videos.length > 0 && currentPlaylist.videos.map((video) => <article className="video-card" key={video._id}>
                     <Link to={`/homepage/${video._id}`}>
                     <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/></Link>
                     <div className="content">
-                        <div className="card-head">
+                        <div className="video-card-head">
                             <p className="title">{video.title}</p>
                         </div>
                         <p className="creator">{video.creator}</p>

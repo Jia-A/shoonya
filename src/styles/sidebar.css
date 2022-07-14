@@ -1,6 +1,6 @@
-aside{
-    width :20%
-}
+/* .sidebar-items{
+    width :25%
+} */
 li{
     list-style: none;
 }
@@ -12,14 +12,33 @@ li{
     margin: 10px;
     border-radius: 5px;
     cursor: pointer;
+    width: max-content;
 }
 .side-item:hover{
     color: #12191d;
     background-color: #a0b2b9;
+    text-decoration: underline ;
 }
 .fas{
-    margin-right: 5px;
+    margin-right: 6px;
+    padding-right: 0px;
+
 }
 .link-style{
     text-decoration: none;
 }
+
+.side-icon{
+    margin-right : 5px;
+}
+
+@media screen and (max-width: 570px) {
+    .items{
+        padding: 5px;
+    }   
+}
+/* @media screen and (max-width: 400px) {
+    .items{
+        padding: 0px;
+    }  
+} */

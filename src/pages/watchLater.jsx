@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
 const WatchLater = () =>{
-const [sidebar, setSidebar] = useState(true);
 const { videoState, removeWatchLater, getLikes, removeLikes, getWatchLater } = useVideo();
 const { watchLater } = videoState;
 const { token } = useAuth();
@@ -23,10 +22,12 @@ const watchLaterHandler = (token, video) =>{
     }
 return (
 <div className="App">
-    <Navbar sidebar={sidebar} setSidebar={setSidebar} />
+    <Navbar  />
     <main className="main-cont">
-        {sidebar ?
-        <Sidebar /> : null}
+    <div className="sidebar-cont">
+        
+        <Sidebar />
+        </div>
         <div className="right-body">
             <div className="chips">
                 <h2 className="page-name">Watch Later Videos</h2>
@@ -36,7 +37,7 @@ return (
                             <article className="video-card">
                             <img src={video.cover} alt="" className="card-img"/>
                              <div className="content">
-                                 <div className="card-head">
+                                 <div className="vide-card-head">
                                      <p className="title">{video.title}</p>
                                  </div>                                              
                                  <p className="creator">{video.creator}</p>
@@ -53,7 +54,6 @@ return (
                                 "Undo Watch Later" :
                                 "Watch Later"
                                 }</button>
-                    <button className="dp-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
                         </div>
                              </div>
                          </article>

@@ -7,7 +7,6 @@ import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
 
 const Liked = () =>{
-    const [sidebar, setSidebar] = useState(true);
     const { token } = useAuth();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes }  = useVideo()
     const { liked } = videoState;
@@ -24,9 +23,12 @@ const Liked = () =>{
         }
         return (
         <div className="App">
-            <Navbar sidebar={sidebar} setSidebar={setSidebar}/>
+            <Navbar />
             <main className="main-cont">
-                {sidebar ? <Sidebar/> : null}
+            <div className="sidebar-cont">
+        
+        <Sidebar />
+        </div>
                 <div className="right-body">
                     <div className="chips">
                         <h2 className="page-name">Liked Videos</h2>
@@ -36,7 +38,7 @@ const Liked = () =>{
                             <article className="video-card">
                             <img src={video.cover} alt="" className="card-img"/>
                              <div className="content">
-                                 <div className="card-head">
+                                 <div className="video-card-head">
                                      <p className="title">{video.title}</p>
                                  </div>             
                                  <p className="creator">{video.creator}</p>
@@ -53,7 +55,6 @@ const Liked = () =>{
                                 "Undo Watch Later" :
                                 "Watch Later"
                                 }</button>
-                    <button className="dp-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
                         </div>
                              </div>
                          </article>

@@ -10,7 +10,6 @@ import { useAuth } from "../context/authContext";
 import ReactPlayer from "react-player";
 
 const Stream = () =>{
-    const [sidebar, setSidebar] = useState(true);
     const { token } = useAuth();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes } = useVideo();
     const { videos, categories } = videoState;   
@@ -39,12 +38,14 @@ removeLikes(token, video._id) : getLikes(token, video)
 
 return (
 <div className="App">
-    <Navbar sidebar={sidebar} setSidebar={setSidebar} />
+    <Navbar  />
     <main className="main-cont">
-        {sidebar ?
-        <Sidebar /> : null}
+    <div className="sidebar-cont">
+        
+        <Sidebar /> 
+        </div>
         <div className="player-div"> 
-                <ReactPlayer url={`https://www.youtube.com/watch?v=${videoID}`} controls={true} width="80%" height="450px"></ReactPlayer>
+                <ReactPlayer url={`https://www.youtube.com/watch?v=${videoID}`} controls={true} playing={true} width="80%" height="450px"></ReactPlayer>
             <div className="video-details">
                 <div className="title-div">
                     <span className="vid-title">{playingVideo.title}</span>
@@ -62,7 +63,6 @@ return (
                                 "Undo Watch Later" :
                                 "Watch Later"
                                 }</button>
-                    <button className="dp-btn vid-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
                 </div>
             </div>
         </div>

@@ -10,7 +10,6 @@ import { useAuth } from "../context/authContext";
 import { useFilter } from "../context/filterContext";
 
 const Homepage = () =>{
-    const [sidebar, setSidebar] = useState(true);
     const { token } = useAuth();
     const navigate =  useNavigate();
     const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory, deleteVideoFromPlaylist, createPlaylist, addVideoToPlaylist } = useVideo();
@@ -71,10 +70,11 @@ removeLikes(token, video._id) : getLikes(token, video)
 
 return (
 <div className="App">
-    <Navbar sidebar={sidebar} setSidebar={setSidebar} />
+    <Navbar/>
     <main className="main-cont">
-        {sidebar ?
-        <Sidebar /> : null}
+        <div className="sidebar-cont">
+        <Sidebar /> 
+        </div>
         <div className="right-body">
             <div className="chips">
                 <ul className="category-list">
@@ -93,7 +93,7 @@ return (
                     <Link to={`/homepage/${video._id}`}>
                     <img src={video.cover} alt="" className="card-img" onClick={()=>getHistory(token, video)}/></Link>
                     <div className="content">
-                        <div className="card-head">
+                        <div className="video-card-head">
                             <p className="title">{video.title}</p>
                         </div>
                         <p className="creator">{video.creator}</p>

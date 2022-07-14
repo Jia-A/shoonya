@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
 const History = () =>{
-    const [sidebar, setSidebar] = useState(true);
     const { videoState, removeHistory, clearHistory, getLikes, removeLikes } = useVideo();
     const { history } = videoState;
     const { token } = useAuth();
@@ -17,9 +16,12 @@ const History = () =>{
         }
     return (
         <div className="App">
-            <Navbar sidebar={sidebar} setSidebar={setSidebar}/>
+            <Navbar/>
             <main className="main-cont">
-                {sidebar ? <Sidebar/> : null}
+            <div className="sidebar-cont">
+       
+        <Sidebar />
+        </div>
                 <div className="right-body">
                     <div className="chips">
                         <h2 className="page-name">History Page</h2>
@@ -31,7 +33,7 @@ const History = () =>{
                             <article className="video-card">
                             <img src={video.cover} alt="" className="card-img"/>
                              <div className="content">
-                                 <div className="card-head">
+                                 <div className="video-card-head">
                                      <p className="title">{video.title}</p>
                                  </div>
                                  <p className="creator">{video.creator}</p>
@@ -48,7 +50,6 @@ const History = () =>{
                                 "Remove from History" :
                                 "History"
                                 }</button>
-                    <button className="dp-btn"><i className="fas fa-list card-icon"></i>Playlist</button>
                         </div>
                              </div>
                          </article>
