@@ -4,9 +4,11 @@
     align-items: center;
     justify-content: center;
 }
-.sign{
+
+.sign {
     margin-top: 2%;
 }
+
 .form-container {
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.1);
     align-self: center;
@@ -18,10 +20,11 @@
     text-align: center;
 
 }
-.signup-form{
-    /* width: 300px; */
+
+.signup-form {
     color: #a0b2b9;
 }
+
 .form-head {
     font-weight: 500;
     color: #a0b2b9;
@@ -38,11 +41,12 @@
     font-family: "Montserrat", sans-serif;
     border: none;
     font-size: 1rem;
-    padding-top: 5px ;
+    padding-top: 5px;
     cursor: pointer;
 
 }
-.new-ac:hover{
+
+.new-ac:hover {
     color: #24292c;
     text-decoration: 1px solid #24292c underline;
 }
@@ -93,7 +97,7 @@
     color: #a0b2b9;
 }
 
-.new-btn{
+.new-btn {
     border: none;
     border-radius: 5px;
     font-family: "Montserrat", sans-serif;
@@ -101,15 +105,17 @@
     margin: 3px;
     padding: 10px;
     font-weight: 500;
-    text-decoration:  1px solid #24292c underline;
+    text-decoration: 1px solid #24292c underline;
 }
-fieldset{
+
+fieldset {
     border: 1px solid #a0b2b9;
     border-radius: 5px;
     margin: 10px;
     padding: 5px;
 }
-.input{
+
+.input {
     padding: 5px;
     width: 250px;
     background-color: transparent;
@@ -117,10 +123,12 @@ fieldset{
     color: #a0b2b9;
     font-weight: 600;
 }
-.input:focus{
+
+.input:focus {
     outline: none;
 }
-.forgot-pass{
+
+.forgot-pass {
     background-color: transparent;
     border: none;
     font-size: 1rem;
@@ -128,42 +136,48 @@ fieldset{
     color: #a0b2b9;
     cursor: pointer;
 }
-.login-btn{
-    width : 80%;
-    margin:5px;
+
+.login-btn {
+    width: 80%;
+    margin: 5px;
     padding: 5px;
     cursor: pointer;
-    background-color:  #a0b2b9;
+    background-color: #a0b2b9;
     border: none;
     border-radius: 5px;
     color: #12191d;
     font-size: 1.1rem;
 }
-.login-btn:hover{
+
+.login-btn:hover {
     background-color: #12191d;
-    color:#a0b2b9;
+    color: #a0b2b9;
     border-bottom: 2px solid #a0b2b9;
 }
-.remem-me{
+
+.remem-me {
     color: #a0b2b9;
 }
-.btn-div{
+
+.btn-div {
     text-align: center;
-    
+
 }
-.new-ac-btn{
-    width : 80%;
-    margin:5px;
+
+.new-ac-btn {
+    width: 80%;
+    margin: 5px;
     padding: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
     background-color: #12191d;
-    color:#a0b2b9;
+    color: #a0b2b9;
 }
-.new-ac-btn:hover{
+
+.new-ac-btn:hover {
     color: #12191d;
-    background-color:  #a0b2b9;
+    background-color: #a0b2b9;
     border-bottom: 2px solid #12191d;
 }

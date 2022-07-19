@@ -32,8 +32,7 @@ function App() {
           <Route path = "/liked" element = { <Liked/>} />
           <Route path = "/watchLater" element = { <WatchLater/>} />
           <Route path = "/playlists" element = { <Playlist/>} />
-          <Route path = "/playlists/:playlistID" element = { <SinglePlaylist/>} />
-          
+          <Route path = "/playlists/:playlistID" element = { <SinglePlaylist/>} />  
         </Route>
 
       </Routes>

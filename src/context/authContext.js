@@ -68,17 +68,16 @@ const AuthProvider = ({
 
     }
     return ( <AuthContext.Provider value = {
-            {
-                token,
-                user,
-                loginHandler,
-                signupHandler,
-                logoutHandler
-            }
-        } > {
-            children
-        } </AuthContext.Provider>
-    );
+        {
+            token,
+            user,
+            loginHandler,
+            signupHandler,
+            logoutHandler
+        }
+    } > {
+        children
+    } </AuthContext.Provider>);
 }
 
 const useAuth = () => useContext(AuthContext);

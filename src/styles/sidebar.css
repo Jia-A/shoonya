@@ -1,10 +1,8 @@
-/* .sidebar-items{
-    width :25%
-} */
-li{
+li {
     list-style: none;
 }
-.side-item{
+
+.side-item {
     color: #a0b2b9;
     font-size: 1.1rem;
     font-weight: 400;
@@ -14,31 +12,29 @@ li{
     cursor: pointer;
     width: max-content;
 }
-.side-item:hover{
+
+.side-item:hover {
     color: #12191d;
     background-color: #a0b2b9;
-    text-decoration: underline ;
+    text-decoration: underline;
 }
-.fas{
+
+.fas {
     margin-right: 6px;
     padding-right: 0px;
 
 }
-.link-style{
+
+.link-style {
     text-decoration: none;
 }
 
-.side-icon{
-    margin-right : 5px;
+.side-icon {
+    margin-right: 5px;
 }
 
 @media screen and (max-width: 570px) {
-    .items{
+    .items {
         padding: 5px;
-    }   
+    }
 }
-/* @media screen and (max-width: 400px) {
-    .items{
-        padding: 0px;
-    }  
-} */

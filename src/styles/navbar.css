@@ -1,50 +1,55 @@
-.nav-cont{
+.nav-cont {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 10px;
     background-color: #1B262C;
-    /* width: auto; */
 }
-.nav-left{
+
+.nav-left {
     display: flex;
 }
-.nav-btn{
+
+.nav-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
-.nav-icon{
+
+.nav-icon {
     color: #a0b2b9;
 }
-.brand-name{
+
+.brand-name {
     color: #a0b2b9;
     font-size: 2rem;
     font-style: italic;
     margin: 0px 10px;
     padding: 0px;
 }
-.brand-quote{
+
+.brand-quote {
     font-size: small;
     margin: 0px;
 }
 
-.nav-buttons{
+.nav-buttons {
     display: flex;
     gap: 7px;
 }
 
-.ham{
+.ham {
     display: none;
 }
 
-@media  screen and (max-width : 600px) {
-    .ham{
+@media screen and (max-width : 600px) {
+    .ham {
         display: block;
     }
 }
+
 @media screen and (max-width: 415px) {
-    .nav-cont{
+    .nav-cont {
         width: 100%;
-    }   
+    }
 }

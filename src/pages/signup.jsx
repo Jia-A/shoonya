@@ -24,7 +24,8 @@ return (
                 </fieldset>
                 <fieldset>
                     <legend for="lname" className="legend-inp">Lastname</legend>
-                    <input type="text" className="input" id="lname" placeholder="Jean" value={newUser.lname} onChange={(e)=>
+                    <input type="text" className="input" id="lname" placeholder="Jean" value={newUser.lname}
+                        onChange={(e)=>
                     setNewUser({...newUser, lname : e.target.value})} required/>
                 </fieldset>
                 <fieldset>

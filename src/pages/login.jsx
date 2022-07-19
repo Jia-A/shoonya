@@ -5,9 +5,7 @@ import { useState } from "react";
 
 const Login = () =>{
 const { loginHandler } = useAuth();
-
 const [loginDetails, setLoginDetails] = useState({email : "", password : ""});
-
 
 const guestUserHandler = (event) => {
 event.preventDefault();
