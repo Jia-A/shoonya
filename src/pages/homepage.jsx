@@ -1,6 +1,7 @@
 import { Navbar } from "../components/navbar";
 import { Sidebar } from "../components/sidebar";
 import { Link, useNavigate } from "react-router-dom"
+import toast from "react-hot-toast";
 import Modal from 'react-modal'
 import "../styles/homepage.css"
 import "../root.css"
@@ -29,6 +30,7 @@ var curr = videoState.videos.find((singleVideo) => singleVideo._id === video._id
 setCurrentVideo(curr)
 }
 else{
+toast.error("You're not logged in!")
 navigate("/login")
 }
 }
