@@ -250,10 +250,7 @@ const getVideosFromPlaylist = async () => {
         token
     } = useAuth();
     try {
-        const response = await axios({
-            method: "get",
-            url: `/api/user/playlists/`
-        }).get("/api/user/playlists/", {
+        const response = await axios.get("/api/user/playlists/", {
             headers: {
                 authorization: token
             }
