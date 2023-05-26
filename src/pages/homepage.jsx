@@ -87,6 +87,8 @@ return (
 
                     <li className="list-item" onClick={(e)=>filterDispatch({type : "CATEGORY", payload :
                         category.categoryName})}>{category.categoryName}</li>
+                    
+                    // <li className="list-item">{category.categoryName}</li>
 
                     ))}
                 </ul>
@@ -131,7 +133,7 @@ return (
         playlistModal && (
         <Modal isOpen={playlistModal} style={customStyle}>
             <header className="views-date">
-                <h3>Playlist Name</h3>
+                <h3 className="playlist-head">Playlist Name</h3>
                 <i className="fas fa-times dp-btn" onClick={()=> setPlaylistModal(false)}></i>
             </header>
             <section>

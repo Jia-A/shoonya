@@ -4,10 +4,11 @@ import "../styles/homepage.css";
 import "../root.css";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
+import { Link } from "react-router-dom";
 
 const Liked = () =>{
 const { token } = useAuth();
-const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes } = useVideo()
+const { videoState, getWatchLater, removeWatchLater, getLikes, removeLikes, getHistory } = useVideo()
 const { liked } = videoState;
 
 const watchLaterHandler = (token, video) =>{
@@ -35,7 +36,9 @@ return (
             <div className="video-list">
                 {liked.map((video)=>(
                 <article className="video-card">
-                    <img src={video.cover} alt="" className="card-img" />
+                    <Link to={`/homepage/${video._id}`}> <img src={video.cover} alt="" className="card-img"
+                        onClick={()=>getHistory(token, video)}/></Link>
+                    {/* <img src={video.cover} alt="" className="card-img" /> */}
                     <div className="content">
                         <div className="video-card-head">
                             <p className="title">{video.title}</p>

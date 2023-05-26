@@ -27,6 +27,9 @@ return(
             <Sidebar />
         </div>
         <div className="right-body">
+            <div className="chips">
+                <h2 className="page-name">Your Playlists</h2>
+            </div>
             <div className="video-list">
                 {playlists.length === 0 && <h2 className="no-playlist">No playlist to show</h2>}
                 {playlists.length > 0 &&

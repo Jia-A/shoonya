@@ -4,8 +4,9 @@ import "../styles/homepage.css";
 import "../root.css";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
+import { Link } from "react-router-dom";
 const WatchLater = () =>{
-const { videoState, removeWatchLater, getLikes, removeLikes, getWatchLater } = useVideo();
+const { videoState, removeWatchLater, getLikes, removeLikes, getWatchLater, getHistory } = useVideo();
 const { watchLater } = videoState;
 const { token } = useAuth();
 
@@ -34,7 +35,9 @@ return (
             <div className="video-list">
                 {watchLater.map((video)=>(
                 <article className="video-card">
-                    <img src={video.cover} alt="" className="card-img" />
+                    <Link to={`/homepage/${video._id}`}> <img src={video.cover} alt="" className="card-img"
+                        onClick={()=>getHistory(token, video)}/></Link>
+                    {/* <img src={video.cover} alt="" className="card-img" /> */}
                     <div className="content">
                         <div className="vide-card-head">
                             <p className="title">{video.title}</p>

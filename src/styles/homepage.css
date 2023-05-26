@@ -186,6 +186,10 @@
     margin-bottom: 10px;
 }
 
+.playlist-head{
+    color: #a0b2b9;
+}
+
 .playlist-inp:focus {
     outline: none;
 }

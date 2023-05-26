@@ -36,6 +36,9 @@ return(
             <Sidebar />
         </div>
         <div className="right-body">
+            <div className="chips">
+                <h2 className="page-name">Playlist Videos</h2>
+            </div>
             <div className="video-list">
                 {currentPlaylist.videos.length > 0 && currentPlaylist.videos.map((video) => <article
                     className="video-card" key={video._id}>
