@@ -4,6 +4,7 @@ import "../styles/homepage.css";
 import "../root.css";
 import { useVideo } from "../context/videoContext";
 import { useAuth } from "../context/authContext";
+import { Link } from "react-router-dom";
 const History = () =>{
 const { videoState, removeHistory, clearHistory, getLikes, removeLikes } = useVideo();
 const { history } = videoState;
@@ -30,7 +31,9 @@ return (
             <div className="video-list">
                 {history.map((video)=>(
                 <article className="video-card">
-                    <img src={video.cover} alt="" className="card-img" />
+                    <Link to={`/homepage/${video._id}`}> <img src={video.cover} alt="" className="card-img"
+                        onClick={()=>getHistory(token, video)}/></Link>
+                    {/* <img src={video.cover} alt="" className="card-img" /> */}
                     <div className="content">
                         <div className="video-card-head">
                             <p className="title">{video.title}</p>
@@ -41,17 +44,15 @@ return (
                             <span className="date">{video.date}</span>
                         </div>
                         <div className="card-icons">
-                            <button className="dp-btn" onClick={()=>likesHandler( token, video )}><i
-                                    className="fas fa-thumbs-up card-icon"></i>{videoState.liked.some((item)=> item._id
+                            <button className="dp-btn" onClick={()=>likesHandler( token, video )}>{videoState.liked.some((item)=> item._id
                                 === video._id) ?
-                                "Unlike" :
-                                "Like"
+                                <i className="fas fa-thumbs-up card-icon card-icon-green"> Liked</i> :
+                                <i className="fas fa-thumbs-up card-icon"> Liked</i>
                                 }</button>
-                            <button className="dp-btn" onClick={()=>removeHistory( token, video._id )}><i
-                                    className="fas fa-clock card-icon"></i>{
-                                videoState.watchLater.some((item)=>item._id===video._id) ?
-                                "Remove from History" :
-                                "History"
+                            <button className="dp-btn" onClick={()=>removeHistory( token, video._id )}>{
+                                videoState.history.some((item)=>item._id===video._id) ?
+                                <i className="fas fa-clock card-icon-green"> History</i> :
+                                <i className="fas fa-clock card-icon"> History</i>
                                 }</button>
                         </div>
                     </div>

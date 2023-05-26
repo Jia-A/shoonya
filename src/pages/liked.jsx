@@ -49,17 +49,15 @@ return (
                             <span className="date">{video.date}</span>
                         </div>
                         <div className="card-icons">
-                            <button className="dp-btn" onClick={()=>likesHandler( token, video )}><i
-                                    className="fas fa-thumbs-up card-icon"></i>{videoState.liked.some((item)=> item._id
+                            <button className="dp-btn" onClick={()=>likesHandler( token, video )}>{videoState.liked.some((item)=> item._id
                                 === video._id) ?
-                                "Unlike" :
-                                "Like"
+                                <i className="fas fa-thumbs-up card-icon card-icon-green"> Liked</i> :
+                                <i className="fas fa-thumbs-up card-icon"> Liked</i>
                                 }</button>
-                            <button className="dp-btn" onClick={()=>watchLaterHandler( token, video )}><i
-                                    className="fas fa-clock card-icon"></i>{
+                            <button className="dp-btn" onClick={()=>watchLaterHandler( token, video )}>{
                                 videoState.watchLater.some((item)=>item._id===video._id) ?
-                                "Undo Watch Later" :
-                                "Watch Later"
+                                <i className="fas fa-clock card-icon card-icon-green"> Watch Later</i> :
+                                <i className="fas fa-clock card-icon"> Watch Later</i>
                                 }</button>
                         </div>
                     </div>

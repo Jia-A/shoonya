@@ -53,18 +53,26 @@ return (
                     <span>{playingVideo.views}</span>
                 </div>
                 <div className="det-div">
-                    <button className="dp-btn vid-btn" onClick={()=>likesHandler( token, playingVideo )}><i
-                            className="fas fa-thumbs-up card-icon"></i>{videoState.liked.some((item)=> item._id ===
+                    <button className="dp-btn vid-btn" onClick={()=>likesHandler( token, playingVideo )}>{videoState.liked.some((item)=> item._id
+                                === playingVideo._id) ?
+                                <i className="fas fa-thumbs-up card-icon card-icon-green"> Liked</i> :
+                                <i className="fas fa-thumbs-up card-icon"> Liked</i>
+                                }</button>
+                    <button className="dp-btn vid-btn" onClick={()=>watchLaterHandler( token, playingVideo )}>{
+                                videoState.watchLater.some((item)=>item._id===playingVideo._id) ?
+                                <i className="fas fa-clock card-icon card-icon-green"> Watch Later</i> :
+                                <i className="fas fa-clock card-icon"> Watch Later</i>
+                                }</button>
+                    {/* <button className="dp-btn vid-btn" onClick={()=>likesHandler( token, playingVideo )}>{videoState.liked.some((item)=> item._id ===
                         playingVideo._id) ?
                         "Unlike" :
                         "Like"
                         }</button>
-                    <button className="dp-btn vid-btn" onClick={()=>watchLaterHandler( token, playingVideo )}><i
-                            className="fas fa-clock card-icon"></i>{
+                    <button className="dp-btn vid-btn" onClick={()=>watchLaterHandler( token, playingVideo )}>{
                         videoState.watchLater.some((item)=>item._id===playingVideo._id) ?
                         "Undo Watch Later" :
                         "Watch Later"
-                        }</button>
+                        }</button> */}
                 </div>
             </div>
         </div>

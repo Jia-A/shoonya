@@ -103,6 +103,11 @@
 
 .card-icon {
     color: #a0b2b9;
+    font-size: 14px;
+    font-weight: 600;
+}
+.card-icon-green{
+    color: green;
 }
 
 .card-icon:hover {
